@@ -3,6 +3,10 @@
   "displayName": "fibonacci-tabbing",
   "description": "A custom tabbing extension that uses Fibonacci sequence for indentation spaces.",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evvic/fibonacci-tabbing"
+  },
   "engines": {
     "vscode": "^1.102.0"
   },
