@@ -29,15 +29,14 @@ jobs:
 
       - name: Get version
         id: get_version
-        run: |
-          echo "version=$(node -p 'require(\"./package.json\").version')" >> $GITHUB_ENV
+        run: echo "version=$(jq -r .version package.json)" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.get_version.outputs.version }}
-          name: Release v${{ steps.get_version.outputs.version }}
+          tag_name: v${{ env.version }}
+          name: Release v${{ env.version }}
           draft: false
           prerelease: false
         env:
@@ -46,8 +45,8 @@ jobs:
       - name: Upload VSIX to Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ steps.get_version.outputs.version }}
-          name: Release v${{ steps.get_version.outputs.version }}
+          tag_name: v${{ env.version }}
+          name: Release v${{ env.version }}
           files: '*.vsix'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
