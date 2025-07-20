@@ -24,12 +24,30 @@ jobs:
       - name: Compile extension
         run: npm run compile
 
-
       - name: Package extension
         run: npx vsce package
 
-      - name: Upload VSIX artifact
-        uses: actions/upload-artifact@v4
+      - name: Get version
+        id: get_version
+        run: |
+          echo "version=$(node -p 'require(\"./package.json\").version')" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
         with:
-          name: fibonacci-tabbing-vsix
-          path: '*.vsix'
+          tag_name: v${{ steps.get_version.outputs.version }}
+          name: Release v${{ steps.get_version.outputs.version }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload VSIX to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.get_version.outputs.version }}
+          name: Release v${{ steps.get_version.outputs.version }}
+          files: '*.vsix'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
