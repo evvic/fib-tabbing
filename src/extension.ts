@@ -33,7 +33,10 @@ function getFibonacciSpacesForDepth(depth: number): number {
     }
     // Multiplier for each Fibonacci indentation level
     const multiplier = 2;
-    // Map depth 1 to F_2 (1), depth 2 to F_3 (2), depth 3 to F_4 (3), etc.
+    // Custom mapping: depth 1 → F_2 (1), depth 2 → F_3 (2), depth 3 → F_4 (3), depth 4 → F_5 (5), ...
+    // But skip the repeated 1 in Fibonacci (i.e., start at F_2)
+    // So, depth 1 → F_2, depth 2 → F_3, depth 3 → F_4, depth 4 → F_5, ...
+    // This gives: 2, 4, 6, 10, ...
     const fibIndex = depth + 1;
     return fibonacci(fibIndex) * multiplier;
 }
@@ -42,7 +45,7 @@ function getFibonacciSpacesForDepth(depth: number): number {
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-    console.log('Congratulations, your extension "fibonacci-tabbing" is now active!');
+    console.log('Extension "fibonacci-tabbing" is now active!');
 
     // Register a command that will be triggered when the user presses Tab or Shift+Tab
     // We'll override the default tab behavior.
@@ -77,19 +80,12 @@ async function applyIndentation(isTab: boolean) {
                 const lineContent = line.text;
 
                 // Determine current indentation level based on leading spaces
-                // This is a simplified approach. A more robust solution might
-                // track logical depth based on block structure.
                 const currentLeadingSpaces = lineContent.match(/^\s*/)?.[0]?.length || 0;
 
-                // For simplicity, we'll estimate current depth based on `tabSize`
-                // or just assume it's the number of spaces if it aligns with a Fibonacci number.
-                // A more accurate approach would involve parsing the code structure.
+                // Find the smallest depth where the Fibonacci indent is greater than currentLeadingSpaces
                 let currentLogicalDepth = 0;
                 for (let d = 0; d < 100; d++) { // Max depth for estimation
-                    if (getFibonacciSpacesForDepth(d) === currentLeadingSpaces) {
-                        currentLogicalDepth = d;
-                        break;
-                    }
+
                     if (getFibonacciSpacesForDepth(d) > currentLeadingSpaces) {
                         currentLogicalDepth = d - 1; // If it's between Fibonacci numbers, go to previous
                         if (currentLogicalDepth < 0) currentLogicalDepth = 0;
