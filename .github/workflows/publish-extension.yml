@@ -33,20 +33,21 @@ jobs:
 
       - name: Create GitHub Release
         id: create_release
-        uses: softprops/action-gh-release@v2
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ env.version }}
-          name: Release v${{ env.version }}
+          release_name: Release v${{ env.version }}
           draft: false
           prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload VSIX to Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ env.version }}
-          name: Release v${{ env.version }}
-          files: '*.vsix'
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./fibonacci-tabbing-${{ env.version }}.vsix
+          asset_name: fibonacci-tabbing-${{ env.version }}.vsix
+          asset_content_type: application/octet-stream
