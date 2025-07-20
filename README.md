@@ -1,51 +1,47 @@
-# fibonacci-tabbing README
 
-This is the README for your extension "fibonacci-tabbing". After writing up a brief description, we recommend including the following sections.
+# Fibonacci Tabbing
 
-## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+**Fibonacci Tabbing** is a simple Visual Studio Code extension that overrides the default tab and shift+tab behavior to use indentation widths based on the Fibonacci sequence (with a multiplier of 2). Instead of a fixed number of spaces per tab, each new indentation level uses the next Fibonacci number (times 2) for the number of spaces.
 
 For example:
 
-This extension contributes the following settings:
+- The first indent level gives 2 spaces
+- The second indent level gives 2 spaces
+- The third indent level gives 4 spaces
+- The fourth indent level gives 6 spaces
+- The fifth indent level gives 10 spaces
+- ...and so on, following the Fibonacci sequence (1, 1, 2, 3, 5, 8, ...) × 2
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+This creates a visually interesting and non-linear indentation style.
+
+
+## Features
+
+- Overrides the default tab and shift+tab keys in the editor
+- Indents and outdents lines using Fibonacci-spaced indentation (with a multiplier of 2)
+- Works with any file type
+
+
+## Requirements
+
+No special requirements. Just install and use!
+
+
+## Extension Settings
+
+This extension does not add any custom settings.
+
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- Indentation is always spaces (not tabs)
+- Indentation is based on leading spaces, not code structure
+
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+### 0.0.1
+- Initial release: Fibonacci-spaced tabbing override
 
 ---
 
