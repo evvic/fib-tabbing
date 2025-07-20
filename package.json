@@ -2,7 +2,7 @@
   "name": "fibonacci-tabbing",
   "displayName": "fibonacci-tabbing",
   "description": "A custom tabbing extension that uses Fibonacci sequence for indentation spaces.",
-  "version": "0.0.2",
+  "version": "0.1.1",
   "publisher": "ewic",
   "repository": {
     "type": "git",
