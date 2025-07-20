@@ -1,6 +1,8 @@
 
 # Fibonacci Tabbing
 
+![Fibonacci Tabbing Demo](assets/fib-tabbing-demo.gif)
+
 **Fibonacci Tabbing** is a simple Visual Studio Code extension that overrides the default tab and shift+tab behavior to use indentation widths based on the Fibonacci sequence (with a multiplier of 2). Instead of a fixed number of spaces per tab, each new indentation level uses the next Fibonacci number (times 2) for the number of spaces.
 
 For example:
